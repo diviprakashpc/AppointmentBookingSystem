@@ -54,7 +54,7 @@ Response : {
 - View Appointment Details :
 
 Type : GET
-Route : /api/appointment/viewAll?patient='patientEmail;
+Route : /api/appointment/viewAll?patientEmail='patientEmail;
 
 Response : {
     code : '',
@@ -112,15 +112,14 @@ Route : /api/appointment/Modify
 
 Request : {
     patientEmail : '',
-    orignalTimeSlot : {
-        startTime : '',
-        endTime : ''
-    },
     endTimeSlot : {
         startTime : '',
         endTime : ''
-    }
+    },
+    doctorEmail : ''
 }
+
+Since we have kept the mapping where we only have one appointment between patient and doctor. We dont need to know the existing time slot.
 
 Response : {
     code : 200,
@@ -128,4 +127,10 @@ Response : {
     model : null
 }
 
+
+
+
+
+EXTRA NOTES: 
+- If I dont use await on .find() I get query returned that I can run to get the actual data. I can run using result.exec()
 
