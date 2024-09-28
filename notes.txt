@@ -1,0 +1,131 @@
+Remember A doctor can have many appointments. But A patient can have only one appointment. Remember before creating appointments.
+(Plan Cancelled wont implement this). a user can have multiple appointments.
+
+- Create Appointment:
+Type : POST
+Route : /api/appointment/Create
+
+Request Payload : {
+    userMail,
+    doctorMail,
+    timeSlot : {
+        startTime : '',
+        endTime : ''
+    }
+
+}
+
+Response : {
+    code : '200',
+    msg : ' Appointment Created Successfully',
+    model : null
+}
+
+Logic : 
+- Check if user exists
+- Check if doctor exists ( However frontend only shows list of existing doctors and patients will have brearer tokens but still for safety purpose)
+- Check if both email same provided. Throw error for that case.
+- Check if Patient is not doctor.
+- Check if doctor specializes in the Request specialization. ( Not now )
+- Check if user already has an appointment booked with the same doctor . 
+- Check if timeSlot is booked or not. ( Overlapping slots )
+- Create an appointment and return success.
+
+
+
+
+- View All Appointments
+
+Type : GET
+Route : /api/appointment/viewAll?doctor='doctorEmail;
+
+Response : {
+    code : '',
+    msg : '',
+    model : {
+        appointments : [{
+            timeSlot,
+            status,
+            doctorName
+        }] 
+    }
+}
+
+- View Appointment Details :
+
+Type : GET
+Route : /api/appointment/viewAll?patient='patientEmail;
+
+Response : {
+    code : '',
+    msg : '',
+    model : {
+        appointmentDetails : {
+            doctorName : '',
+            timeSlot : {
+                startTime: '',
+                endTime : ''
+            },
+            patientName : '' // This can be patient details. So can have some disease or something.
+        }
+    }
+}
+
+- Cancel Appointment API : 
+
+Type : POST
+Route : /api/appointment/cancel
+
+Req : {
+    patient : '' // useremail
+    timeSlot : {
+        startTime : '',
+        endTime : ''
+    },
+    doctor : '' // doctor email
+
+}
+
+Res : {
+    code : 200,
+    model : null,
+    msg : 'Succsess'
+}
+
+Logic : 
+i) Find patient by their email.
+ii) Find doctor by email.
+iii) Check if appointment exist with this doctor
+ii) To cancel an appointment mark the appointment status as 'Cancelled' in the appointment table.
+
+
+Response : {
+    code : 200,
+    msg : 'Succsess',
+    model : null
+}
+
+-Modify Appointment API:
+
+Type : PUT
+Route : /api/appointment/Modify
+
+Request : {
+    patientEmail : '',
+    orignalTimeSlot : {
+        startTime : '',
+        endTime : ''
+    },
+    endTimeSlot : {
+        startTime : '',
+        endTime : ''
+    }
+}
+
+Response : {
+    code : 200,
+    msg : 'Succsess',
+    model : null
+}
+
+
